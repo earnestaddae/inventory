@@ -29,3 +29,13 @@
 
 1. `bin/ci` contains all the tests and checks for the app
 2. `tmp/brakeman.html` shows you all the security issues if any
+
+## Features Implemented
+
+- Basic CRUD Functionality.
+  - Create inventory items
+  - Edit Them
+  - Delete Them
+  - View a list of them
+- Additional feature
+  - Allow image uploads AND store image with generated thumbnails
