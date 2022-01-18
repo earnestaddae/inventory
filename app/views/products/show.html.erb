@@ -3,16 +3,18 @@
   <p class="m-0"><%= number_to_currency(@product.price) %></p>
 
 
-  <p>
-    <% if @product.image.attached? %>
-      <figure>
-        <%= image_tag @product.image %>
-        <figcaption><%= link_to @product.image.filename, rails_blob_path(@product.image, dispostion: "attachment") %> (<%= number_to_human_size(@product.image.attachment.blob.byte_size) %>)</figcaption>
-      </figure>
-      <% else %>
-        <%= image_tag "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_960_720.jpg" %>
-    <% end %>
-  </p>
+  <div class="row">
+    <div class="col-12">
+      <% if @product.image.attached? %>
+        <figure>
+          <%= image_tag @product.image %>
+          <figcaption><%= link_to @product.image.filename, rails_blob_path(@product.image, dispostion: "attachment") %> (<%= number_to_human_size(@product.image.attachment.blob.byte_size) %>)</figcaption>
+        </figure>
+        <% else %>
+          <%= image_tag "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_960_720.jpg" %>
+      <% end %>
+    </div>
+  </div>
 
   <p>
     <%= link_to "Edit Product", edit_product_path(@product) %> 
