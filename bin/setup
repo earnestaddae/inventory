@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+require "colorize"
+
+# system! does the system exectution tasks
+def system!(*args)
+  log "Executing #{args}"
+  if system(*args)
+    log "#{args} succeeded"
+  else 
+    log "#{args} failed"
+    abort
+  end
+end
+
+# log displays the respective message
+def log(message)
+  puts "[ bin/setup ] #{message}"
+end
+
+# setup sets up the app ready to be serve
+def setup
+  log "Installing gems".colorize(:blue)
+  # Install gems   
+  system! "bundle check || bundle install"
+
+  log ""
+
+  log "Droping, recreating, and seeding development database".colorize(:red)
+  system! "bin/rails db:reset || bin/rails db:migrate"
+
+
+  log ""
+
+  log "Dropping and recreating test database".colorize(:red)
+  system!({"RAILS_ENV" => "test"}, "bin/rails db:reset")
+
+  log ""
+
+  log "All set up!".colorize(:green)
+  log ""
+  log "To see commonly used commands, run:"
+  log ""
+  log "     bin/setup help".colorize(:light_blue)
+  log ""
+end
+
+# help displays helpful messages
+def help
+  log "Useful commands: ".colorize(:green)
+  log ""
+  log "   bin/run".colorize(:green)
+  log "     # runs app locallly"
+  log ""
+  log "   bin/ci".colorize(:green)
+  log "     # runs all tests and checks as CI would"
+  log ""
+  log "   bin/rspec spec/models".colorize(:green)
+  log "    # runs unit-tests"
+  log ""
+  log "   bin/rspec spec/features".colorize(:green)
+  log "     # runs feature / integration tests"
+  log ""
+  log "   bin/setup help".colorize(:green)
+  log "     # shows this help"
+end
+
+
+if ARGV[0] == "help"
+  help 
+else
+  setup 
+end

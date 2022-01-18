@@ -1,0 +1,12 @@
+<p><%= link_to "Add Product", new_product_path %> </p>
+
+<div class="products">
+<div class="container">
+  <% @products.each do |product| %>
+    <%= render product %>
+  <% end %>
+</div>
+
+<%== pagy_nav(@pagy) %>
+
+</div>
